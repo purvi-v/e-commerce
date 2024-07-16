@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block title %}
+Market Page
+{% endblock %}
+{% block content %}
+
+<div class="row" style="margin-top:20px; margin-left:20px">
+   <div class="col-8">
+      <h2>Items in Market</h2>
+<ul>
+  {% for item in items %}
+    <li>{{ item.name }} - ${{ item.price }}</li>
+  {% endfor %}
+</ul>
+
+<div class="row" style="margin-top:20px; margin-left:20px">
+<div class="col-4">
+<h2>Owned Items</h2>
+<ul>
+  {% for item in owned_items %}
+    <li>{{ item.name }} - ${{ item.price }}</li>
+  {% endfor %}
+</ul>
+
+<!-- Purchase and Sell Forms -->
+<form method="POST" action="{{ url_for('market_page') }}">
+   {{ purchase_form.hidden_tag() }}
+   <div class="form-group">
+     {{ purchase_form.purchased_item.label }}
+     {{ purchase_form.purchased_item(class="form-control") }}
+   </div>
+   <button type="submit" class="btn btn-primary">Purchase Item</button>
+ </form>
+
+ <form method="POST" action="{{ url_for('market_page') }}">
+   {{ selling_form.hidden_tag() }}
+   <div class="form-group">
+     {{ selling_form.sold_item.label }}
+     {{ selling_form.sold_item(class="form-control") }}
+   </div>
+   <button type="submit" class="btn btn-primary">Sell Item</button>
+ </form> 
+
+{% endblock %}        
